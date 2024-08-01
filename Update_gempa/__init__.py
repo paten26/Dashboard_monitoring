@@ -1,3 +1,8 @@
+"""
+FOLDER Update_Gempa adalah PACKAGE, yang didalamnya berisi modul __init__.py
+modul ini yang dipanggil di main.py menggunakan perintah if __name__ == "__main__":
+"""
+
 def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
 
     """
@@ -26,10 +31,10 @@ def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
 
 def tampilkan_data(hasil):  #mendefinisikan fungsi tampilkan data
     print("GEMPABUMI TERKINI")
-    print(f"result {hasil['tanggal']}")
-    print(f"result {hasil['waktu']}")
-    print(f"result {hasil['magnitudo']}")
-    print(f"result {hasil['kedalaman']}")
-    print(f"result {hasil['lokasi']}")
-    print(f"result {hasil['pusat']}")
-    print(f"result {hasil['keterangan']}")
+    print(f"tanggal : {hasil['tanggal']}")
+    print(f"waktu : {hasil['waktu']}")
+    print(f"magnitudo : {hasil['magnitudo']}")
+    print(f"kedalaman : {hasil['kedalaman']}")
+    print(f"lokasi : {hasil['lokasi']}")
+    print(f"pusat : {hasil['pusat']}")
+    print(f"keterangan : {hasil['keterangan']}")
