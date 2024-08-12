@@ -31,13 +31,24 @@ def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
         tanggal = result[0]
         waktu = result[1]
 
-        result = soup.find('span', {'class': 'ic magnitude'})
-        magnitude = result.text
+        #result = soup.find('span', {'class': 'ic magnitude'})
+        #magnitude = result.text
+        #magnitudo = 0
+
+        result = soup.find('div', {'class': 'col-md-6 col-xs-6 gempabumi-detail no-padding'}) #ini data yang diambil
+        result = result.findChildren('li') #li adalah sub datanya, tanggal, waktu dll
+
+        i = 0
+        for res in result: #agar hasil diurutkan kebawahh
+            print(i, res)
+            if i == 1: #akan mengambil data magnitudo, yang merupakan data ke 1
+                magnitudo = res.text #untuk mengambil nilainya saja
+            i = i + 1
 
         hasil = dict()
-        hasil['tanggal'] = '28 Juli 2024'
-        hasil['waktu'] = '18:20:31 WIB'
-        hasil['magnitudo'] = 5.6
+        hasil['tanggal'] = tanggal#'28 Juli 2024'
+        hasil['waktu'] = waktu #'18:20:31 WIB'
+        hasil['magnitude'] = magnitudo
         hasil['kedalaman'] = 144
         hasil['lokasi'] = {'ls': 6.31, 'bt': 130.20}
         hasil['pusat'] = '221 km BaratLaut TANIMBAR'
@@ -54,7 +65,7 @@ def tampilkan_data(hasil):  #mendefinisikan fungsi tampilkan data
     print("GEMPABUMI TERKINI")
     print(f"tanggal : {hasil['tanggal']}")
     print(f"waktu : {hasil['waktu']}")
-    print(f"magnitudo : {hasil['magnitudo']}")
+    print(f"magnitude : {hasil['magnitude']}")
     print(f"kedalaman : {hasil['kedalaman']}")
     print(f"lokasi : {hasil['lokasi']}")
     print(f"pusat : {hasil['pusat']}")
