@@ -2,6 +2,9 @@
 FOLDER Update_Gempa adalah PACKAGE, yang didalamnya berisi modul __init__.py
 modul ini yang dipanggil di main.py menggunakan perintah if __name__ == "__main__":
 """
+import requests
+from bs4 import BeautifulSoup
+
 
 def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
 
@@ -16,20 +19,38 @@ def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
     Keterangan : tidak berpotensi TSUNAMI
     :return:
     """
+    try:
+        content = requests.get('https://bmkg.go.id')
+    except Exception:
+        return None
+    if content.status_code == 200:
+        soup = BeautifulSoup(content.text, 'html.parser')
 
-    hasil = dict()
-    hasil['tanggal'] = '28 Juli 2024'
-    hasil['waktu'] = '18:20:31 WIB'
-    hasil['magnitudo'] = 5.6
-    hasil['kedalaman'] = 144
-    hasil['lokasi'] = {'ls': 6.31, 'bt': 130.20}
-    hasil['pusat'] = '221 km BaratLaut TANIMBAR'
-    hasil['keterangan'] = 'tidak berpotensi TSUNAMI'
+        result = soup.find('span', {'class': 'waktu'})
+        result = result.text.split(', ')
+        tanggal = result[0]
+        waktu = result[1]
 
-    return hasil
+        result = soup.find('span', {'class': 'ic magnitude'})
+        magnitude = result.text
 
+        hasil = dict()
+        hasil['tanggal'] = '28 Juli 2024'
+        hasil['waktu'] = '18:20:31 WIB'
+        hasil['magnitudo'] = 5.6
+        hasil['kedalaman'] = 144
+        hasil['lokasi'] = {'ls': 6.31, 'bt': 130.20}
+        hasil['pusat'] = '221 km BaratLaut TANIMBAR'
+        hasil['keterangan'] = 'tidak berpotensi TSUNAMI'
+        return hasil
+    else:
+        return None
 
 def tampilkan_data(hasil):  #mendefinisikan fungsi tampilkan data
+    if hasil is None:
+        print("Tidak bisa menemukan data gempa terkini")
+        return
+
     print("GEMPABUMI TERKINI")
     print(f"tanggal : {hasil['tanggal']}")
     print(f"waktu : {hasil['waktu']}")
