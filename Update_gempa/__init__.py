@@ -48,7 +48,7 @@ def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
 
         i = 0
         for res in result: #agar hasil diurutkan kebawahh
-            print(i, res)
+            #print(i, res) #jika ini diaktifkan akan menampilkan DATA ASLI
             if i == 1: #akan mengambil data magnitudo, yang merupakan data ke 1
                 magnitudo = res.text #untuk mengambil nilainya saja
             elif i == 2:
