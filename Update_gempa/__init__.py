@@ -38,21 +38,37 @@ def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
         result = soup.find('div', {'class': 'col-md-6 col-xs-6 gempabumi-detail no-padding'}) #ini data yang diambil
         result = result.findChildren('li') #li adalah sub datanya, tanggal, waktu dll
 
+        magnitude = None
+        kedalaman = None
+        ls = None
+        bt = None
+        koordinat = None
+        lokasi = None
+        dirasakan = None
+
         i = 0
         for res in result: #agar hasil diurutkan kebawahh
             print(i, res)
             if i == 1: #akan mengambil data magnitudo, yang merupakan data ke 1
                 magnitudo = res.text #untuk mengambil nilainya saja
+            elif i == 2:
+                kedalaman = res.text
+            elif i == 3:
+                koordinat = res.text
+            elif i == 4:
+                lokasi = res.text
+            elif i == 5:
+                dirasakan = res.text
             i = i + 1
 
         hasil = dict()
-        hasil['tanggal'] = tanggal#'28 Juli 2024'
-        hasil['waktu'] = waktu #'18:20:31 WIB'
-        hasil['magnitude'] = magnitudo
-        hasil['kedalaman'] = 144
-        hasil['lokasi'] = {'ls': 6.31, 'bt': 130.20}
-        hasil['pusat'] = '221 km BaratLaut TANIMBAR'
-        hasil['keterangan'] = 'tidak berpotensi TSUNAMI'
+        hasil['tanggal'] = tanggal
+        hasil['waktu'] = waktu
+        hasil['magnitudo'] = magnitudo
+        hasil['kedalaman'] = kedalaman
+        hasil['koordinat'] = koordinat
+        hasil['lokasi'] = lokasi
+        hasil['keterangan'] = dirasakan
         return hasil
     else:
         return None
@@ -65,8 +81,8 @@ def tampilkan_data(hasil):  #mendefinisikan fungsi tampilkan data
     print("GEMPABUMI TERKINI")
     print(f"tanggal : {hasil['tanggal']}")
     print(f"waktu : {hasil['waktu']}")
-    print(f"magnitude : {hasil['magnitude']}")
+    print(f"magnitudo : {hasil['magnitudo']}")
     print(f"kedalaman : {hasil['kedalaman']}")
+    print(f"koordinat : {hasil['koordinat']}")
     print(f"lokasi : {hasil['lokasi']}")
-    print(f"pusat : {hasil['pusat']}")
     print(f"keterangan : {hasil['keterangan']}")
