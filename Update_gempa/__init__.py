@@ -20,11 +20,12 @@ def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
     :return:
     """
     try:
-        content = requests.get('https://bmkg.go.id')
+        content = requests.get('https://bmkg.go.id') #mengambil BMKG.GO.ID
     except Exception:
-        return None
-    if content.status_code == 200:
-        soup = BeautifulSoup(content.text, 'html.parser')
+        return None # jika error return none
+
+    if content.status_code == 200: #content status code 200 berarti berhasil
+        soup = BeautifulSoup(content.text, 'html.parser') #buka object beautifulsoup
 
         result = soup.find('span', {'class': 'waktu'})
         result = result.text.split(', ')
@@ -36,7 +37,7 @@ def ekstraksi_data():  #mendefinisikan fungsi ekstraksi data
         #magnitudo = 0
 
         result = soup.find('div', {'class': 'col-md-6 col-xs-6 gempabumi-detail no-padding'}) #ini data yang diambil
-        result = result.findChildren('li') #li adalah sub datanya, tanggal, waktu dll
+        result = result.findChildren('li') #li adalah sub datanya, tanggal, waktu dll. li adalah list item
 
         magnitude = None
         kedalaman = None
